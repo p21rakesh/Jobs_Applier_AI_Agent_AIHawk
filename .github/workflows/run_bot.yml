@@ -20,23 +20,16 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y expect
+          sudo apt-get install -y wget curl unzip
 
       - name: Install Python Dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Run Bot Bypassing Menu
+      - name: Run Bot Headless
         env:
           llm_api_key: ${{ secrets.GEMINI_API_KEY }}
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
         run: |
-          expect -c '
-            spawn python main.py
-            expect "Select the action you want to perform"
-            send "\x1b\[B"
-            sleep 1
-            send "\n"
-            expect eof
-          '
+          python start_cloud_bot.py
