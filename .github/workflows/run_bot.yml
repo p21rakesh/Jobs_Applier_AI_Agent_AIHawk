@@ -26,5 +26,6 @@ jobs:
           llm_api_key: ${{ secrets.GEMINI_API_KEY }}
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
-        run: |
-          echo -e "\n" | python main.py
+       run: |
+          # Bypasses main.py and triggers the core background automation module directly
+          python -m src.run_bot
