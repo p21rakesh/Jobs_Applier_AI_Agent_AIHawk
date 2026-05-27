@@ -20,3 +20,6 @@ llm_model_type = "gemini"
 llm_model = "gemini-2.5-flash"
 # Only required for OLLAMA models
 LLM_API_URL = ''
+# Headless browser config for server environments
+MINIMUM_WAIT_TIME_IN_SECONDS = 30
+LOG_TO_CONSOLE = True
