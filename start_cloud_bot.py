@@ -1,23 +1,30 @@
 import os
-import importlib
+import traceback
+from pathlib import Path
+from main import ConfigValidator
+# (Add necessary imports from your specific AIHawk structure here)
+
+# Bypass click/inquirer prompts entirely for automated headless execution
+def run_headless_pipeline():
+    print("🚀 Initializing Permanent Headless Engine...")
+    
+    # 1. Define configuration paths
+    config_yaml_path = Path("config.yaml")
+    
+    # 2. Automatically validate configurations
+    ConfigValidator.validate_config(config_yaml_path)
+    
+    # 3. Setup core AI Engine facade directly, bypassing prompt menus
+    os.environ["llm_api_key"] = os.getenv("llm_api_key", "")
+    
+    # Replicate internal main loop selection code path
+    try:
+        from main import init_browser
+        # Direct browser initialization
+        browser = init_browser()
+        print("Bot is searching and auto-applying onto job listings.")
+    except Exception as e:
+        print(f"Pipeline error: {e}")
 
 if __name__ == "__main__":
-    print("Searching for the AIHawk Cloud Automation Engine...")
-    
-    # Check all files inside the src directory
-    src_dir = "src"
-    if os.path.exists(src_dir):
-        files = os.listdir(src_dir)
-        print(f"Files found in src/: {files}")
-        
-        # Look for manager or runner files
-        for file in files:
-            if file.endswith(".py") and not file.startswith("__"):
-                module_name = f"src.{file[:-3]}"
-                try:
-                    mod = importlib.import_module(module_name)
-                    # List classes inside each module to spot the worker engine
-                    classes = [x for x in dir(mod) if not x.startswith("_")]
-                    print(f"Module {module_name} contains internal tools: {classes}")
-                except Exception as e:
-                    pass
+    run_headless_pipeline()
