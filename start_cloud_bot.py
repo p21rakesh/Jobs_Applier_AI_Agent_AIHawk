@@ -1,24 +1,23 @@
 import os
-from src.job import Job
+import importlib
 
 if __name__ == "__main__":
-    print("Initializing AIHawk Headless Application Engine...")
+    print("Searching for the AIHawk Cloud Automation Engine...")
     
-    # Initialize the main job object
-    bot = Job()
-    
-    # Look through the object to find the method that starts the bot
-    possible_methods = ['start_applying', 'apply', 'run', 'start', 'execute']
-    executed = False
-    
-    for method_name in possible_methods:
-        if hasattr(bot, method_name):
-            print(f"Found automation method: {method_name}(). Running now...")
-            getattr(bot, method_name)()
-            executed = True
-            break
-            
-    if not executed:
-        # If none of the common names match, list everything inside the file so we can see it
-        print("Could not find standard start method. Available internal functions are:")
-        print([attr for attr in dir(bot) if not attr.startswith('_')])
+    # Check all files inside the src directory
+    src_dir = "src"
+    if os.path.exists(src_dir):
+        files = os.listdir(src_dir)
+        print(f"Files found in src/: {files}")
+        
+        # Look for manager or runner files
+        for file in files:
+            if file.endswith(".py") and not file.startswith("__"):
+                module_name = f"src.{file[:-3]}"
+                try:
+                    mod = importlib.import_module(module_name)
+                    # List classes inside each module to spot the worker engine
+                    classes = [x for x in dir(mod) if not x.startswith("_")]
+                    print(f"Module {module_name} contains internal tools: {classes}")
+                except Exception as e:
+                    pass
