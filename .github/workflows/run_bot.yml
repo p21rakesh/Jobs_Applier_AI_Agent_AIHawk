@@ -17,24 +17,24 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Virtual Screen and Chrome Dependencies
+      - name: Install Chrome & Ubuntu 24.04 Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libxi6 libgconf-2-4 libnss3-dev libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0
+          sudo apt-get install -y xvfb libnss3 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2t64 fonts-liberation
+          # Download and install a stable Google Chrome version
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get install -f -y
 
       - name: Install Python Dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Launch Bot with Virtual Display Screen
+      - name: Run Bot via Headless Virtual Display Server
         env:
           llm_api_key: ${{ secrets.GEMINI_API_KEY }}
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
         run: |
-          # Starts a virtual desktop screen in the cloud backend
-          Xvfb :99 -screen 0 1920x1080x24 &
-          export DISPLAY=:99
-          
-          # Automatically streams the selection options and launches the engine
-          printf "\033[B\n\n\n\n" | python main.py
+          # Uses the auto-servernum display wrapper to keep Chrome happy inside the cloud
+          xvfb-run --auto-servernum python main.py
