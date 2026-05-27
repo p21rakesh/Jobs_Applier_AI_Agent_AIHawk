@@ -17,19 +17,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install System Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget curl unzip
-
       - name: Install Python Dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Run Bot Headless
+      - name: Run Bot with Automated Answers
         env:
           llm_api_key: ${{ secrets.GEMINI_API_KEY }}
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
         run: |
-          python start_cloud_bot.py
+          # 1. Pushes 'Down Arrow' then 'Enter' to choose the Application Option
+          # 2. Pushes 'Enter' right away to choose the Default Resume Style
+          # 3. Pushes 'Enter' to confirm the rest of the prompts
+          printf "\033[B\n\n\n\n" | python main.py
