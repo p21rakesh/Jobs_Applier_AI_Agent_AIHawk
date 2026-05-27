@@ -17,11 +17,29 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Chrome & Ubuntu 24.04 Dependencies
+      - name: Install Ubuntu 24.04 Chrome Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libnss3 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2t64 fonts-liberation
-          # Download and install a stable Google Chrome version
+          sudo apt-get install -y \
+            xvfb \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxrandr2 \
+            libgbm1 \
+            libasound2t64 \
+            fonts-liberation \
+            libu2f-udev \
+            libvulkan1 \
+            xdg-utils
+
+      - name: Install Google Chrome Web Browser
+        run: |
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo dpkg -i google-chrome-stable_current_amd64.deb
           sudo apt-get install -f -y
@@ -30,11 +48,11 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run Bot via Headless Virtual Display Server
+      - name: Launch Bot via Virtual Display Screen
         env:
           llm_api_key: ${{ secrets.GEMINI_API_KEY }}
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
         run: |
-          # Uses the auto-servernum display wrapper to keep Chrome happy inside the cloud
+          # Use xvfb-run to provide a virtual screen layout for Chrome
           xvfb-run --auto-servernum python main.py
