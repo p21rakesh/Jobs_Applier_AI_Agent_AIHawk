@@ -27,4 +27,5 @@ jobs:
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
         run: |
-          python main.py
+          python main.py --mode auto
+
