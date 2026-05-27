@@ -4,7 +4,7 @@ onsite: true
 
 experience_level:
   internship: false
-  entry: true
+  entry: false
   associate: true
   mid_senior_level: true
   director: false
@@ -12,36 +12,75 @@ experience_level:
 
 job_types:
   full_time: true
-  contract: false
+  contract: true
   part_time: false
-  temporary: true
+  temporary: false
   internship: false
   other: false
-  volunteer: true
+  volunteer: false
 
 date:
   all_time: false
-  month: false
+  month: true
   week: false
-  24_hours: true
+  24_hours: false
 
 positions:
-  - Software engineer
+  - "Manager"
+  - "Senior Manager"
+  - "AGM"
+  - "Program Manager"
+  - "Strategy Manager"
+  - "Digital Transformation Manager"
+  - "PMO Manager"
+  - "Operations Strategy Manager"
+  - "Analytics Manager"
+  - "Business Transformation Manager"
 
 locations:
-  - Germany
+  - "Chennai, Tamil Nadu, India"
+  - "Bengaluru, Karnataka, India"
+  - "Bangalore, Karnataka, India"
+  - "Coimbatore, Tamil Nadu, India"
+  - "Hyderabad, Telangana, India"
+  - "Kochi, Kerala, India"
+  - "Trivandrum, Kerala, India"
+  - "Thiruvananthapuram, Kerala, India"
+  - "Mysuru, Karnataka, India"
+  - "Mysore, Karnataka, India"
+  - "Mangaluru, Karnataka, India"
+  - "Mangalore, Karnataka, India"
+  - "Visakhapatnam, Andhra Pradesh, India"
+  - "Vizag, Andhra Pradesh, India"
+  - "Tiruchirappalli, Tamil Nadu, India"
+  - "Trichy, Tamil Nadu, India"
+  - "Madurai, Tamil Nadu, India"
+  - "Tamil Nadu, India"
+  - "Karnataka, India"
+  - "Kerala, India"
+  - "Andhra Pradesh, India"
+  - "Telangana, India"
 
 apply_once_at_company: true
 
-distance: 100
+distance: 50
 
 company_blacklist:
-  - wayfair
-  - Crossover
+  - "Wayfair"
+  - "Crossover"
+  - "Adani"
 
 title_blacklist:
-  - word1
-  - word2
+  - "Intern"
+  - "Graduate Trainee"
 
 location_blacklist:
-  - Brazil
+  - "Brazil"
+  - "United States"
+  - "USA"
+  - "Canada"
+  - "United Kingdom"
+  - "UK"
+  - "Germany"
+  - "France"
+  - "Netherlands"
