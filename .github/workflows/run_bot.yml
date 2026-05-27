@@ -1,9 +1,9 @@
 name: Run AIHawk Job Applier
 
 on:
-  workflow_dispatch: # Gives you a manual "Play" button
+  workflow_dispatch:
   schedule:
-    - cron: '0 9 * * *' # Automatically runs every day at 9:00 AM
+    - cron: '0 9 * * *'
 
 jobs:
   run-bot:
@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10' # Safe, ultra-stable version for cloud bots
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
@@ -26,6 +26,5 @@ jobs:
           llm_api_key: ${{ secrets.GEMINI_API_KEY }}
           LINKEDIN_USERNAME: ${{ secrets.LINKEDIN_USERNAME }}
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
-       run: |
-          # Bypasses main.py and triggers the core background automation module directly
+        run: |
           python -m src.run_bot
